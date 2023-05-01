@@ -2,6 +2,7 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
 const generateShape = require("./lib/generateShape");
+const generateSVG = require("./lib/generateSVG");
 
 const questions = [
   {
@@ -13,6 +14,9 @@ const questions = [
     type: "input",
     name: "textColor",
     message: "What text color would you like your logo to have?",
+    validate: (input) => {
+      const isHexColorCode = /^#[0-9A-F]{6}$/i.test(input);
+    },
   },
   {
     type: "list",
@@ -32,12 +36,13 @@ function startProgram() {
     .prompt(questions)
     .then((answers) => {
       const nameOfFile = "logo.svg";
-      const data = generateShape(answers);
+      const shapeData = generateShape(answers);
+      const svgData = generateSVG(answers, shapeData);
       if (answers.text.length > 3) {
         console.log("Logo text must be upto 3 characters long");
         startProgram();
       } else {
-        writeToFile(nameOfFile, data);
+        writeToFile(nameOfFile, svgData);
       }
     })
     .catch((error) => {
