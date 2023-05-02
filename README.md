@@ -6,7 +6,7 @@ A Node.js command-line application that takes in user input to generate a logo a
 
 A walkthrough video demonstrating the functionality of the application is given below:
 
-[Click here to watch walkthroughvideo]()
+[Click here to watch walkthroughvideo](./images/walkthroughvideo-svglogomaker.mp4)
 
 The application will be invoked by using the following command:
 
