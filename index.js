@@ -11,8 +11,12 @@ const questions = [
     name: "text",
     message: "What text would you like in your logo? Enter upto 3 characters. ",
     validate: (input) => {
-      const isCorrectLength = input.length > 3;
-      return isCorrectLength;
+      const correctLength = input.length;
+      if (correctLength > 3) {
+        return false;
+      } else {
+        return true;
+      }
     },
   },
   {
@@ -20,7 +24,7 @@ const questions = [
     name: "textColor",
     message: "What text color would you like your logo to have?",
     validate: (input) => {
-      const isColor = color.includes(input.toLowercase());
+      const isColor = color.includes(input.toLowerCase());
       const isHexColorCode = /^#[0-9A-F]{6}$/i.test(input);
       return isColor || isHexColorCode;
     },
@@ -36,7 +40,7 @@ const questions = [
     name: "shapeColor",
     message: "What color would you like your logo to have?",
     validate: (input) => {
-      const isColor = color.includes(input.toLowercase());
+      const isColor = color.includes(input.toLowerCase());
       const isHexColorCode = /^#[0-9A-F]{6}$/i.test(input);
       return isColor || isHexColorCode;
     },
