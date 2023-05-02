@@ -50,3 +50,5 @@ The following images show the web application's appearance and functionality:
 ![SVG File](./images/svg-logo-file.png)
 
 ![SVG logo created](./images/logo-mockup.png)
+
+![Tests](./images/tests.png)
