@@ -1,6 +1,7 @@
 // import the dependencies
 const inquirer = require("inquirer");
 const fs = require("fs");
+const color = require("./lib/colorKeyword");
 const generateShape = require("./lib/generateShape");
 const generateSVG = require("./lib/generateSVG");
 
@@ -9,13 +10,19 @@ const questions = [
     type: "input",
     name: "text",
     message: "What text would you like in your logo? Enter upto 3 characters. ",
+    validate: (input) => {
+      const isCorrectLength = input.length > 3;
+      return isCorrectLength;
+    },
   },
   {
     type: "input",
     name: "textColor",
     message: "What text color would you like your logo to have?",
     validate: (input) => {
+      const isColor = color.includes(input.toLowercase());
       const isHexColorCode = /^#[0-9A-F]{6}$/i.test(input);
+      return isColor || isHexColorCode;
     },
   },
   {
@@ -28,6 +35,11 @@ const questions = [
     type: "input",
     name: "shapeColor",
     message: "What color would you like your logo to have?",
+    validate: (input) => {
+      const isColor = color.includes(input.toLowercase());
+      const isHexColorCode = /^#[0-9A-F]{6}$/i.test(input);
+      return isColor || isHexColorCode;
+    },
   },
 ];
 
@@ -38,12 +50,7 @@ function startProgram() {
       const nameOfFile = "logo.svg";
       const shapeData = generateShape(answers);
       const svgData = generateSVG(answers, shapeData);
-      if (answers.text.length > 3) {
-        console.log("Logo text must be upto 3 characters long");
-        startProgram();
-      } else {
-        writeToFile(nameOfFile, svgData);
-      }
+      writeToFile(nameOfFile, svgData);
     })
     .catch((error) => {
       console.log(error);
